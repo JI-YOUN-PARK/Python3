@@ -1,0 +1,53 @@
+n,m=map(int,input().split()) #n:행 m:열
+d=[[0]*m for _ in range(n)] # 캐릭터가 방문한 위치를 저장한다.
+x,y,direction=map(int,input().split()) #현재 좌표와 어디를 바라보고있는지 입력받는다
+d[x][y]=1   #현재 위치를 기준점으로 잡는다
+array=[]
+
+for i in range(n):
+    array.append(list(map(int,input().split()))) # n행에 대한 지형 정보를 입력받기 위해 for i in range(n)을 하며 input.split 한다.
+
+#북,동,남,서 순서
+dx=[-1,0,1,0]  # x값이 바뀌는 경우는 북/남으로 이동할 경우 뿐이므로 그대로 반영되었다.
+dy=[0,1,0,-1]  # y값이 바뀌는 경우는 동/서으로 이동할 경우 뿐이므로 그대로 반영되었다.
+
+def turn_left():    # 지문에서는 초기 캐릭터가 바라보는 방향에 대해 북:0 / 동:1 / 남:2 / 서:3 으로 제시했다. 이걸 기반으로 계산된다.
+    global direction
+    direction-=1    # 왼쪽으로 돌 때마다 -1을 하여 방향을 인식한다.
+    if direction==-1: # -1이라는 값은 범위(0~3) 초과이며, 북에서 한 번 더 돈 값이 서(=3)이므로 값 수정해준다.
+        direction=3
+
+count=1 # 칸을 몇 개나 방문하였는지 체크한다.
+turn_time=0
+
+while True:
+    turn_left() #어떠한 상황이든 일단 '왼쪽으로 돌고본다'고 지문에 적혀있음.
+    nx=x+dx[direction]  # 현재위치의 x값(nx)을 계산했다. 디폴트 위치(1,1)에서 움직인다. 이때 현재 direction에 따라 dx에서 값 선택한다.
+    ny=y+dy[direction]  # 현재위치의 y값(ny)을 계산했다. 디폴트 위치(1,1)에서 움직인다. 이때 현재 direction에 따라 dy에서 값 선택한다.
+
+    if d[nx][ny]==0 and array[nx][ny]==0: # 안 가본 곳(d[nx][ny]==0)이며 & 육지(array[nx][ny]==0)라면
+        d[nx][ny]=1 # 가본 곳(d[nx][ny]==0)으로 설정해준다. 아래는 그 일련의 과정이다.
+        x=nx        # 현재 위치의 x값을 최신으로 update한다.
+        y=ny        # 현재 위치의 x값을 최신으로 update한다.
+        count +=1   # 가본 지역을 count한다.
+        turn_time=0 # 새로운 지역으로 왔기때문에, 캐릭터의 사방에 대한 정보를 리셋한다.
+        continue
+
+    else:
+         turn_time +=1  # 사방에 대한 정보가 갱신중이다. 사방(동서남북) 중 한 곳이 막혀있고 그에 대한 카운트.
+
+    if turn_time==4:    # 모든 방향을 방문해봤다. 지문 왈 [네 방향 모두 가본 칸이거나 바다라면, 바라보는 방향 유지한 채 한 칸 뒤로 가고 1단계(현 방향 기준 왼쪽 방향 갈 곳 정하기)를 한다.]
+
+        #1단계(현 방향 기준 왼쪽 방향 갈 곳 정하기)를 한다.
+        nx = x + dx[direction] # 현재위치의 x값(nx)을 계산했다. 디폴트 위치(1,1)에서 움직인다. 이때 현재 direction에 따라 dx에서 값 선택한다.
+        ny = y + dy[direction] # 현재위치의 y값(ny)을 계산했다. 디폴트 위치(1,1)에서 움직인다. 이때 현재 direction에 따라 dy에서 값 선택한다.
+
+        if array[nx][ny] == 0: # 현재 위치가 육지다.
+            x = nx #현재 위치 업데이트
+            y = ny
+
+        else:
+            break
+        turn_time=0
+
+print(count)
