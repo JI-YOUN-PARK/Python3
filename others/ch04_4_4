@@ -1,0 +1,17 @@
+anum=input()
+
+final=[]
+total=0
+
+for i in anum:
+    if i.isalpha():
+        final.append(i)
+    else:
+        total +=int(i)
+
+final.sort()
+
+if total !=0:
+    final.append(str(total))
+    
+print(''.join(final))
