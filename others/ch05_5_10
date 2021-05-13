@@ -1,0 +1,41 @@
+def dfs(x, y):
+    # 틀을 벗어나면 False값을 뱉어내어 세지 않음
+    if x <= -1 or x >= n or y <= -1 or y >= m:
+        return False
+
+    # 틀이 0(얼음 가능) 상태라면
+    if graph[x][y] == 0:
+        # 일단 1(불가능) 상태로 바꿔주고 다음에는 방문 안하게 한다.
+        graph[x][y] = 1
+
+        # 상하좌우 위치들(=연결된 위치들)도 재귀함수 사용해 방문 처리 진행
+        dfs(x - 1, y)
+        dfs(x, y - 1)
+        dfs(x + 1, y)
+        dfs(x, y + 1)
+        return True
+    return False
+
+
+# --------------------------------------------------------------------#
+
+n, m = map(int, input().split())
+
+graph = []
+for i in range(n):
+    graph.append(list(map(int, input())))
+
+result = 0
+
+for i in range(n):
+    for j in range(m):
+        if dfs(i, j) == True:
+            result += 1
+        '''
+        Q) 이 부분으로 체크가 되는가?
+        A) 손코딩 해보니 된다. 모든 좌표에 대해 해당 if절을 적용시, 1개의 아이스크림이 계산되면
+        상하좌우 계산하는 4개의 dfs의 값이 False로 리턴되어 자동적으로 dfs함수를 탈출하고 result+=1을
+        하게된다. 이에 따라 아이스크림의 개수가 세어지는게 가능하다.
+        '''
+
+print(result)
