@@ -1,0 +1,13 @@
+array=[7,5,9,0,3,1,6,2,4,8]
+
+for i in range(len(array)):
+    min_index=i
+
+    for j in range(i+1,len(array)):
+        
+        # 앞 카드의 숫자가 더 높으면, 뒤의 다른 카드를 가져와 계속 비교를 진행한다.
+        if array[min_index]>array[j]:
+            min_index=j
+    array[i],array[min_index]=array[min_index],array[i]
+
+print(array)
