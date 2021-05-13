@@ -1,0 +1,23 @@
+def dfs(graph,v,visited):
+    visited[v]=True # 이제 여긴 방문한 곳이고,
+    look.append(v)  # 스택에 삽입 처리 할거야!
+
+    for i in graph[v]:  # 스택에 삽입했다면, 이제 가까운 노드를 찾을거야.
+        if not visited[i]:  #   1. 인접 노드가 방문되지 않은 상태라면(if not False 라면)
+            dfs(graph,i,visited) # 2. 해당 노드에 대해 재귀함수로 dfs함수 적용
+
+graph=[
+    [],
+    [2,3,8],
+    [1,7,8],
+    [1,4,5],
+    [3,5],
+    [3,4],
+    [7],
+    [2,6,8],
+    [1,7],
+]
+
+visited=[False]*9
+look=[]
+dfs(graph,1,visited)
