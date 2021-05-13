@@ -1,6 +1,5 @@
 from collections import deque
 
-
 n, m = map(int, input().split())
 
 graph = []
@@ -9,13 +8,15 @@ for i in range(n):
 
 dx=[-1,1,0,0] # x좌표는 상하좌우中 '상/하'에만 영향을 받는다
 dy=[0,0,-1,1] # y좌표는 상하좌우中 '좌/우'에만 영향을 받는다
+
 # --------------------------------------------------------------------#
+
 def bfs(x,y):
     queue=deque()
     queue.append((x,y))
 
     while queue:
-        x,y=queue.popleft()
+        x,y=queue.popleft() # x=0 y=0 이 된다.
 
         for i in range(4):
             new_x = x + dx[i]
@@ -33,10 +34,24 @@ def bfs(x,y):
             if graph[new_x][new_y] == 1:
 
                 #'BFS를 계속 수행하면 결과적으로 다음과 같이 최단 경로의 값들이 1씩 증가하는 형태로 변경된다."
-                graph[new_x][new_y] = graph[new_x][new_y]+1
+                graph[new_x][new_y] = graph[x][y]+1
                 queue.append((new_x,new_y))
 
     return graph[n-1][m-1]
 
 
 print(bfs(0,0)) #bfs(0,0)인 이유 : 지문 왈 '(1,1)에서 항상 시작'. 이는 코딩에서 (0,0)의 위치다.
+
+
+'''
+Q) 어떤 원리로 돌아갔나?
+A) (0,0)을 넣어 상하좌우를 살펴보면,
+ new_x = x + dx[i]
+ new_y = y + dy[i]
+ 이 두 식의 계산에 따라 queue.append((new_x,new_y))에 (0,1)이 적용되어 캐릭터는 (0,0) --> (0,1)로 이동한다. 그리고
+ (0,1)은 +1 되어 2라는 값을 갖게 된다.
+ 
+ (0,1)에서도 상하좌우를 살피면 앞처럼 일련의 과정에 따라 자연스럽게 (1,1)로 캐릭터가 이동한다.
+ 
+ 이것을 반복하면 주변에 '1'이라는 값을 가진 길만 따라서 움직이게 되고, 결국 최종 루트에 도달한다.
+'''
