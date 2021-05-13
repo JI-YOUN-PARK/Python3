@@ -1,0 +1,30 @@
+from collections import deque
+
+def bfs(graph,start,visited):
+    queue=deque([start]) #시작노드(start)를 queue에 넣는다.
+    visited[start]=True # 이제 여긴 방문한 곳
+
+    while queue:    # 큐가 빌 때까지 라는 뜻이다.
+        v=queue.popleft() #원소 꺼내기
+        print(v,end=' ')
+
+        for i in graph[v]:
+            if not visited[i]:  # visited[i]=Flase 라면 -->방문되지 않았음
+                queue.append(i) # 같은 레벨에 있는 것들을 먼저 모두 가보는 것임을 생각하자.
+                visited[i]=True # 방문한 노드는 True(=방문했음)으로 설정.
+
+graph=[
+    [],
+    [2,3,8],
+    [1,7],
+    [1,4,5],
+    [3,5],
+    [3,4],
+    [7],
+    [2,6,8],
+    [1,7],
+]
+
+visited=[False]*9
+
+bfs(graph,1,visited)
