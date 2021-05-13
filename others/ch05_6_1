@@ -1,17 +1,17 @@
-array=[7,5,9,0,3,1,6,2,4,8]
+array = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
 
 for i in range(len(array)):
-    min_index=i
+    min_index = i
 
     # 앞 카드의 숫자가 더 작으면, 뒤의 다른 카드를 가져와 계속 비교를 진행한다.
-    for j in range(i+1,len(array)):
-        
-        #만약 앞의 카드가 더 작다면
-        if array[min_index]>array[j]:
+    for j in range(i + 1, len(array)):
+
+        # 작은 카드가 나타나면(array[j])
+        if array[min_index] > array[j]:
+            # min_index는 더 작은 수(array[j])로 교체된다
+            min_index = j
             
-            # 스와프를 위해 min_index=j로 지정하고
-            min_index=j
-    #스와프를 진행한다
-    array[i],array[min_index]=array[min_index],array[i]
+    # 최종적으로 걸러진 제일 작은 수와, 현재 바꾸고자 하는 위치의 수를 스와프한다.
+    array[i], array[min_index] = array[min_index], array[i]
 
 print(array)
