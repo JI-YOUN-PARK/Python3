@@ -1,0 +1,22 @@
+def bsearch(array,target,start,end):
+    if start>end:
+        return None
+
+    mid=(start+end)//2
+    if array[mid]==target:
+        return mid
+    elif array[mid]>target:
+        # array[mid]>target : 찾으려는 수가 mid보다 아래에 있다.
+        # 그러므로 수열을 start부터 mid-1(mid보다 아래이므로)까지로 바꾼다.
+        return bsearch(array,target,start,mid-1)
+    else:   # array[mid]<target
+        return bsearch(array,target,mid+1,end)
+
+n,target=list(map(int,input().split()))
+array=list(map(int,input().split()))
+
+result=bsearch(array,target,0,n-1)
+if result==None:
+    print("원소가 존재하지 않습니다.")
+else:
+    print(result+1)
