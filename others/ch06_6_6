@@ -1,0 +1,21 @@
+'''
+내가 짠 코드. count함수를 활용했다.
+array=[7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+total=[]
+for i in range(len(array)):
+    total.append(array.count(i))
+
+for i in range(len(total)):
+    for j in range(total[i]):
+        print(i,end=' ')
+'''
+
+array=[7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+total=[0]*(max(array)+1)
+
+for i in range(len(array)):
+    total[array[i]]+=1
+
+for i in range(len(total)):
+    for j in range(total[i]):
+        print(i,end=' ')
