@@ -1,0 +1,13 @@
+n,k=map(int,input().split())
+a=list(map(int,input().split()))
+b=list(map(int,input().split()))
+a.sort()
+b.sort(reverse=True)
+
+for i in range(k):
+
+  #내가 처음에 가정을 잘못했다. 큰 수를 비교해서 바꾸는게 아니라, 작은 수를 바꿔야 더 큰 값이 나온다.
+    if a[i]<b[i]:
+        a[i],b[i]=b[i],a[i]
+
+print(sum(a))
