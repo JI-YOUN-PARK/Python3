@@ -1,0 +1,26 @@
+#n : 떡의 개수      m : 떡의 길이
+n,m=list(map(int,input().split()))
+array=list(map(int,input().split()))
+
+start=0
+end=max(array)
+result=0
+
+while(start<=end):
+    total=0 #잘린 떡 길이의 합
+    mid=(start+end)//2
+
+    for i in array:
+        # i>mid이면 떡이 잘렸다는 소리.
+        if i>mid:
+            # 그러므로 잘린만큼(i-mid) total에 더한다.
+            total += i-mid
+        #합계가 내가 원하는 길이(=M)보다 작으면
+        if total<m:
+            #mid를 앞으로 한 칸만 땡겨 계산을 다시 진행한다.
+            # 왜 앞으로 땡기는가? : 길이가 부족하니, 한 칸 땡겨서 길이를 충당한다.
+            end=mid-1
+        else:
+            result=mid
+            start=mid+1
+print(result)
