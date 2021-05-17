@@ -1,0 +1,9 @@
+def fibo(x):
+
+    #피보나치수열 순서 : 1 1 2 3 5 8 ... 이다.
+    #이때, fibo(1)과 fibo(2)는 값이 1이므로 1을 돌려준다(=return 1).
+    if x==1 or x==2:
+        return 1
+    return fibo(x-1)+fibo(x-2)
+
+print(fibo(4))
