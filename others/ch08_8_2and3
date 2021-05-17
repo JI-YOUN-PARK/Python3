@@ -13,7 +13,8 @@ def fibo(x):
     #그러므로 이미 계산되어 저장된 값을 호출한다.
     if d[x] != 0:
         return d[x]
-
+        
+    #이 부분에서 더하기 처리를 하고 d[x]에 결과값을 저장한 것이다.
     d[x]=fibo(x-1)+fibo(x-2)
     return d[x]
 
