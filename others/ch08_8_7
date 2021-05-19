@@ -1,0 +1,36 @@
+#금광
+
+#테스트 케이스들을 입력받는다
+for tc in range(int(input())):
+    n,m=map(int,input().split())
+    array=list(map(int,input().split()))
+
+    dp=[]
+    index=0
+
+    # 금광 정보를 m단위만큼씩 슬라이싱 해 dp 테이블에 넣어줘 2차원 형식으로 만든다.
+    for i in range(n):
+        dp.append(array[index:index+m])
+        index+=m
+
+    #바텀업 방식
+    for j in range(1,m):    # 각 열마다
+        for i in range(n):  # 각 행을 확인한다. 모든 방향에 대하여
+
+            # 왼쪽 위에서 오는 경우
+            if i==0: left_up=0  # 인덱스를 벗어나지 않는지 체크한다. 인덱스 벗어나면 0으로 초기화.
+            else: left_up=dp[i-1][j-1]
+
+            # 왼쪽 아래에서 오는 경우
+            if i==n-1: left_down=0  # 인덱스를 벗어나지 않는지 체크한다.인덱스 벗어나면 0으로 초기화.
+            else: left_down=dp[i+1][j-1]
+
+            # 왼쪽에서 오는 경우
+            left=dp[i][j-1]
+            dp[i][j]=dp[i][j]+max(left_up,left_down,left)
+
+        result=0
+
+    for i in range(n):
+        result=max(result,dp[i][m-1])
+    print(result)
